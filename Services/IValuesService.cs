@@ -4,5 +4,5 @@ namespace TestTask.Services;
 
 public interface IValuesService
 {
-    Task InputFromCsvAsync(IFormFile file, CancellationToken cancellationToken);
+    Task ImportAsync(IFormFile file, CancellationToken cancellationToken);
 }

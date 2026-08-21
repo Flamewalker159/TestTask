@@ -10,9 +10,10 @@ namespace TestTask.Controllers;
 public class ValueController(IValuesService valuesService) : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Import([FromForm] IFormFile? file, CancellationToken cancellationToken)
+    public async Task<IActionResult> Import(IFormFile? file, CancellationToken cancellationToken)
     {
-        await valuesService.InputFromCsvAsync(file, cancellationToken);
+        if (file == null) return BadRequest();
+        await valuesService.ImportAsync(file, cancellationToken);
         return Ok();
     }
 }

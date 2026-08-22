@@ -16,6 +16,8 @@ builder.Services.AddScoped<IResultCalculator, ResultCalculator>();
 builder.Services.AddScoped<IFileImportRepository, FileImportRepository>();
 builder.Services.AddScoped<ICsvFileReader, CsvFileReader>();
 builder.Services.AddScoped<CsvValidate>();
+builder.Services.AddScoped<IResultsService, ResultsService>();
+builder.Services.AddScoped<IResultsRepository, ResultsRepository>();
 
 builder.Services.AddSwaggerGen();
 

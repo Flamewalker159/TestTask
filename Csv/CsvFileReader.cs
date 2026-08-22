@@ -1,4 +1,5 @@
 using System.Globalization;
+using CsvHelper;
 using CsvHelper.Configuration;
 using TestTask.DTOs;
 
@@ -16,14 +17,11 @@ public class CsvFileReader : ICsvFileReader
         {
             Delimiter = ";"
         };
-        using var csv = new CsvHelper.CsvReader(reader, config);
+        using var csv = new CsvReader(reader, config);
 
         var records = new List<CsvValueDto>();
 
-        await foreach (var record in csv.GetRecordsAsync<CsvValueDto>(cancellationToken))
-        {
-            records.Add(record);
-        }
+        await foreach (var record in csv.GetRecordsAsync<CsvValueDto>(cancellationToken)) records.Add(record);
 
         return records;
     }

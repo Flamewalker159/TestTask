@@ -10,13 +10,15 @@ public class FileImportRepository(AppDbContext dbContext) : IFileImportRepositor
     {
         await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
 
-        var existingFile = await dbContext.FileImports.FirstOrDefaultAsync(x => x.FileName == fileImport.FileName, cancellationToken);
+        var existingFile =
+            await dbContext.FileImports.FirstOrDefaultAsync(x => x.FileName == fileImport.FileName, cancellationToken);
 
         if (existingFile is not null)
         {
             dbContext.FileImports.Remove(existingFile);
             await dbContext.SaveChangesAsync(cancellationToken);
         }
+
         try
         {
             dbContext.FileImports.Add(fileImport);

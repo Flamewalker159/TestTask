@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TestTask.Data;
 using TestTask.Services;
 
 namespace TestTask.Controllers;

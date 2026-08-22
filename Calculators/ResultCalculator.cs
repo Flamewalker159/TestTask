@@ -8,7 +8,7 @@ public class ResultCalculator : IResultCalculator
     {
         var maxDate = records.Max(v => v.Date);
         var minDate = records.Min(v => v.Date);
-        
+
         return new Result
         {
             TimeDelta = (maxDate - minDate).TotalSeconds,
@@ -27,11 +27,8 @@ public class ResultCalculator : IResultCalculator
         var sortRecords = records.OrderBy(v => v.Value).Select(v => v.Value).ToList();
         var count = sortRecords.Count;
 
-        if (count % 2 == 0)
-        {
-            return (sortRecords[count / 2 - 1] + sortRecords[count / 2]) / 2;
-        }
-        
+        if (count % 2 == 0) return (sortRecords[count / 2 - 1] + sortRecords[count / 2]) / 2;
+
         return sortRecords[count / 2];
     }
 }

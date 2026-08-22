@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace TestTask.Services;
 
 public interface IValuesService

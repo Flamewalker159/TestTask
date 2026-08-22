@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IValuesService, ValuesService>();
+builder.Services.AddScoped<IFileImportService, FileImportService>();
 builder.Services.AddScoped<IResultCalculator, ResultCalculator>();
 builder.Services.AddScoped<IFileImportRepository, FileImportRepository>();
 builder.Services.AddScoped<ICsvFileReader, CsvFileReader>();
@@ -26,7 +26,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

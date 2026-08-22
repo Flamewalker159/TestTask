@@ -9,9 +9,10 @@ public class GlobalExceptionHandler : IExceptionHandler
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception,
         CancellationToken cancellationToken)
     {
-        var (statusCode, title, description) = exception switch
+        var (statusCode, title, detail) = exception switch
         {
-            BadRequestException ex => (ex.StatusCode, ex.Title, ex.Description),
+            NotFoundException ex => (ex.StatusCode, ex.Title, ex.Detail),
+            BadRequestException ex => (ex.StatusCode, ex.Title, ex.Detail),
             _ => (StatusCodes.Status500InternalServerError, "Неизвестная ошибка",
                 $"Произошла необработанная ошибка: {exception.Message}")
         };
@@ -23,7 +24,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         {
             Status = statusCode,
             Title = title,
-            Detail = description,
+            Detail = detail,
             Instance = httpContext.Request.Path.ToString()
         };
 

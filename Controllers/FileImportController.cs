@@ -4,14 +4,14 @@ using TestTask.Services;
 namespace TestTask.Controllers;
 
 [ApiController]
-[Route("api/csv")]
-public class ValueController(IValuesService valuesService) : ControllerBase
+[Route("api/file-imports")]
+public class FileImportController(IFileImportService fileImportService) : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> Import(IFormFile? file, CancellationToken cancellationToken)
     {
         if (file == null) return BadRequest();
-        await valuesService.ImportAsync(file, cancellationToken);
+        await fileImportService.ImportAsync(file, cancellationToken);
         return Ok();
     }
 }

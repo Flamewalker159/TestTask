@@ -7,11 +7,11 @@ using TestTask.Validators;
 
 namespace TestTask.Services;
 
-public class ValuesService(
+public class FileImportService(
     ICsvFileReader csvFileReader,
     CsvValidate validator,
     IResultCalculator calculator,
-    IFileImportRepository importRepository) : IValuesService
+    IFileImportRepository importRepository) : IFileImportService
 {
     public async Task ImportAsync(IFormFile file, CancellationToken cancellationToken)
     {

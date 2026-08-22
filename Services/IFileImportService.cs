@@ -1,6 +1,6 @@
 namespace TestTask.Services;
 
-public interface IValuesService
+public interface IFileImportService
 {
     Task ImportAsync(IFormFile file, CancellationToken cancellationToken);
 }

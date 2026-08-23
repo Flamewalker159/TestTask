@@ -11,8 +11,9 @@ public class GlobalExceptionHandler : IExceptionHandler
     {
         var (statusCode, title, detail) = exception switch
         {
-            NotFoundException ex => (ex.StatusCode, ex.Title, ex.Detail),
             BadRequestException ex => (ex.StatusCode, ex.Title, ex.Detail),
+            NotFoundException ex => (ex.StatusCode, ex.Title, ex.Detail),
+            InternalServerException ex => (ex.StatusCode, ex.Title, ex.Detail),
             _ => (StatusCodes.Status500InternalServerError, "Неизвестная ошибка",
                 $"Произошла необработанная ошибка: {exception.Message}")
         };

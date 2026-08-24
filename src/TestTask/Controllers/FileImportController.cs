@@ -12,6 +12,6 @@ public class FileImportController(IFileImportService fileImportService) : Contro
     {
         if (file == null) return BadRequest();
         await fileImportService.ImportAsync(file, cancellationToken);
-        return Ok();
+        return Created();
     }
 }

@@ -10,7 +10,8 @@ public class ResultsRepository(AppDbContext dbContext) : IResultsRepository
 {
     public async Task<List<Result>> GetResultsAsync(ResultFilterDto filterDto, CancellationToken cancellationToken)
     {
-        var query = dbContext.Results.AsNoTracking();
+        var query = dbContext.Results.Include(x => x.FileImport)
+            .AsNoTracking();
 
         if (!string.IsNullOrWhiteSpace(filterDto.FileName))
             query = query.Where(x => x.FileImport.FileName == filterDto.FileName);
@@ -31,10 +32,10 @@ public class ResultsRepository(AppDbContext dbContext) : IResultsRepository
         if (filterDto.AverageExecutionTimeTo.HasValue)
             query = query.Where(x => x.AverageExecutionTime <= filterDto.AverageExecutionTimeTo.Value);
 
-
-        if (!query.Any())
+        var results = await query.ToListAsync(cancellationToken);
+        if (results.Count == 0)
             throw new NotFoundException("Ничего не найдено");
 
-        return await query.ToListAsync(cancellationToken);
+        return results;
     }
 }
